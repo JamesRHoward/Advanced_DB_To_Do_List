@@ -67,6 +67,17 @@ namespace ToDoList //replace with your desired namespace
         category.AddTask(task);
         return View["success.cshtml"];
       };
+      Get["tasks/update/{id}"] = parameters =>
+      {
+        Task foundTask = Task.Find(parameters.id);
+        return View["task_update.cshtml", foundTask];
+      };
+      Patch["tasks/update/{id}"] = parameters =>
+      {
+        Task foundTask = Task.Find(parameters.id);
+        foundTask.Update(Request.Form["new-description"], Request.Form["completed"]);
+        return View["success.cshtml"];
+      };
     }
   }
 }

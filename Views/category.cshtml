@@ -1,3 +1,7 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
 <h1>To Do List</h1>
 <h2>Category: @Model["category"].GetName()</h2>
 <hr />
@@ -7,7 +11,10 @@
   <ul>
     @foreach (var task in @Model["categoryTasks"])
     {
-      <li>@task.GetDescription()</li>
+      <li><a href='/tasks/@task.GetId()'>@task.GetDescription()</a>
+        <a class="leftmargin btn-sm btn-success" href="/tasks/update/@task.GetId()">Update</a>
+        <a class="leftmargin btn-sm btn-danger" href="/tasks/delete/@task.GetId()">Delete</a>
+      </li>
     }
   </ul>
 }
@@ -23,4 +30,6 @@
   </select>
   <button type='submit'>Add</button>
 </form>
-<p><a href="/">Return to Main Page</a></p>
+<hr>
+
+<p><a class="btn-sm btn-primary" href="/">Return to Main Page</a></p>

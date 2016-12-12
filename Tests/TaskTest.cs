@@ -143,6 +143,36 @@ namespace ToDoList
       Assert.Equal(testCategoryTasks, resultCategoryTasks);
     }
 
+    [Fact]
+    public void Test_Completed_ReturnsCompletedFromDatabase()
+    {
+      //Arrange
+      Task testTask1 = new Task("Mow the lawn");
+      testTask1.Save();
+      Task testTask2 = new Task("Walk the cat");
+      testTask2.Save();
+      Task testTask3 = new Task("Shine shoes");
+      testTask3.Save();
+
+      List<Task> allTasks = Task.GetAll();
+      foreach (Task task in allTasks)
+      {
+        Assert.Equal(task.GetCompleted(), false);
+      }
+    }
+
+    [Fact]
+    public void Test_Update_UpdatesInDb()
+    {
+      Task testTask = new Task("water the cat");
+      testTask.Save();
+      testTask.Update("mow the lawn", true);
+
+      Task newTask = new Task("mow the lawn", testTask.GetId(), true);
+
+      Assert.Equal(testTask, newTask);
+    }
+
     public void Dispose()
     {
       Task.DeleteAll();
